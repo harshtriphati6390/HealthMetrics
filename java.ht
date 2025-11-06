@@ -1,0 +1,74 @@
+// Sample weekly fitness data
+const fitnessData = [
+  { day: "Mon", steps: 5200, calories: 1800, sleep: 6.5 },
+  { day: "Tue", steps: 6300, calories: 1900, sleep: 7.0 },
+  { day: "Wed", steps: 7000, calories: 2000, sleep: 6.8 },
+  { day: "Thu", steps: 8000, calories: 2100, sleep: 7.5 },
+  { day: "Fri", steps: 9500, calories: 2200, sleep: 6.7 },
+  { day: "Sat", steps: 11000, calories: 2300, sleep: 8.0 },
+  { day: "Sun", steps: 9000, calories: 2000, sleep: 7.2 },
+];
+
+// Calculate averages
+const avg = (key) => (fitnessData.reduce((a, b) => a + b[key], 0) / fitnessData.length).toFixed(1);
+
+document.getElementById("avgSteps").textContent = avg("steps");
+document.getElementById("avgCalories").textContent = avg("calories");
+document.getElementById("avgSleep").textContent = avg("sleep");
+
+// Chart for Steps
+new Chart(document.getElementById("stepsChart"), {
+  type: "line",
+  data: {
+    labels: fitnessData.map(d => d.day),
+    datasets: [{
+      label: "Steps",
+      data: fitnessData.map(d => d.steps),
+      borderColor: "#4caf50",
+      backgroundColor: "rgba(76,175,80,0.2)",
+      fill: true,
+      tension: 0.3
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { position: "top" } }
+  }
+});
+
+// Chart for Calories
+new Chart(document.getElementById("caloriesChart"), {
+  type: "bar",
+  data: {
+    labels: fitnessData.map(d => d.day),
+    datasets: [{
+      label: "Calories Burned",
+      data: fitnessData.map(d => d.calories),
+      backgroundColor: "rgba(255,99,132,0.6)"
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { position: "top" } }
+  }
+});
+
+// Chart for Sleep
+new Chart(document.getElementById("sleepChart"), {
+  type: "line",
+  data: {
+    labels: fitnessData.map(d => d.day),
+    datasets: [{
+      label: "Sleep Duration (hours)",
+      data: fitnessData.map(d => d.sleep),
+      borderColor: "#2196f3",
+      backgroundColor: "rgba(33,150,243,0.2)",
+      fill: true,
+      tension: 0.3
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { position: "top" } }
+  }
+});
